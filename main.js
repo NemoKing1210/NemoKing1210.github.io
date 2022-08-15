@@ -64,17 +64,29 @@ class DaysWithoutBugs {
 
     update() {
         const diff = moment().diff(moment(this.startDate), 'days')
-    
+
         this.app.innerHTML = diff
     }
-    
+
     reset() {
         this.startDate = LocalStorage.set('start-date', moment().format('YYYY-MM-DD'))
         this.update()
     }
 }
 
+window.addEventListener('load', async () => {
+    if ('serviceWorker' in navigator) {
+        try {
+            const reg = await navigator.serviceWorker.register('/sw.js')
+            console.log('Service worker register success', reg)
+        } catch (e) {
+            console.log('Service worker register fail')
+        }
+    }
 
-document.addEventListener("DOMContentLoaded", function() {
+    await loadPosts()
+})
+
+document.addEventListener("DOMContentLoaded", function () {
     window.daysWithoutBugs = new DaysWithoutBugs()
 })
