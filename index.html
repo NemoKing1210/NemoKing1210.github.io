@@ -1,0 +1,44 @@
+<html>
+
+<head>
+    <title>Счетчик</title>
+    <style>
+        html,
+        body {
+            font-size: 16px;
+        }
+
+        #wrapper {
+            text-align: center;
+        }
+
+        #title {
+            font-size: 4rem;
+        }
+
+        #app {
+            font-size: 13rem;
+        }
+
+        #reset {
+            font-size: 4rem;
+        }
+    </style>
+
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+
+    <link rel="manifest" href="manifest.json">
+
+</head>
+
+<body>
+    <div id="wrapper">
+        <h1 id="title">Количество дней без багов:</h1>
+        <div id="app"></div>
+        <button id="reset">Сбросить</button>
+    </div>
+    <script src="moment.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
