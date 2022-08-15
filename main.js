@@ -1,3 +1,19 @@
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-app.js"
+import { getFirestore, collection, getDocs } from 'firebase/firestore/lite'
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBrARaCfiCCnbeFvzL9MmlrQ5bpTwXpVk8",
+  authDomain: "days-without-bugs.firebaseapp.com",
+  projectId: "days-without-bugs",
+  storageBucket: "days-without-bugs.appspot.com",
+  messagingSenderId: "362237998287",
+  appId: "1:362237998287:web:fd75d1ca464958fc4af3ba",
+}
+
+const app = initializeApp(firebaseConfig)
+const db = getFirestore(app)
+
 class LocalStorage {
     static get(key, props = {}) {
         if (props === true) props = { withOptions: true };
@@ -42,7 +58,7 @@ class LocalStorage {
 
 class DaysWithoutBugs {
     constructor() {
-        this.app = document.getElementById('app')
+        this.counter = document.getElementById('counter')
         this.resetButton = document.getElementById('reset')
 
         this.startDate = LocalStorage.get('start-date')
@@ -62,10 +78,17 @@ class DaysWithoutBugs {
         this.update()
     }
 
+    async getDate() {
+        const info = collection(db, 'info')
+        const infoSnapshot = await getDocs(info)
+
+        console.log(infoSnapshot)
+    }
+
     update() {
         const diff = moment().diff(moment(this.startDate), 'days')
 
-        this.app.innerHTML = diff
+        this.counter.innerHTML = diff
     }
 
     reset() {
@@ -83,6 +106,8 @@ window.addEventListener('load', async () => {
             console.log('Service worker register fail')
         }
     }
+
+    await loadPosts()
 })
 
 document.addEventListener("DOMContentLoaded", function () {
