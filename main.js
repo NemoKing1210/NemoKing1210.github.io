@@ -86,14 +86,14 @@ class DaysWithoutBugs {
     }
 
     update() {
-        const diff = moment().diff(moment(this.startDate), 'days')
+        // const diff = moment().diff(moment(this.startDate), 'days')
 
-        this.counter.innerHTML = diff
+        // this.counter.innerHTML = diff
     }
 
     reset() {
-        this.startDate = LocalStorage.set('start-date', moment().format('YYYY-MM-DD'))
-        this.update()
+        // this.startDate = LocalStorage.set('start-date', moment().format('YYYY-MM-DD'))
+        // this.update()
     }
 }
 
