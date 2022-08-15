@@ -83,8 +83,6 @@ window.addEventListener('load', async () => {
             console.log('Service worker register fail')
         }
     }
-
-    await loadPosts()
 })
 
 document.addEventListener("DOMContentLoaded", function () {
