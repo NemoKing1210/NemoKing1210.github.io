@@ -1,0 +1,40 @@
+body {
+    margin: 0;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.wrapper {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.flipdown {
+    display: flex;
+    justify-content: center;
+}
+
+button#reset {
+    border: 1px solid #afafaf;
+    background-color: #f3f3f3;
+    border-radius: .35rem;
+    padding: .5rem .75rem;
+    box-shadow: 0 1px 1px 1px #0000001a;
+}
+
+h1#title {
+    font-weight: bold;
+    font-family: sans-serif;
+    margin-bottom: 1.5rem;
+    color: #cfc9c9;
+}
+
+.errors-box {
+    padding: .5rem;
+    text-align: center;
+    background-color: #ffebeb;
+    margin-top: 1rem;
+}
