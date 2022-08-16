@@ -52,7 +52,7 @@ class DaysWithoutBugs {
 
         this.data = LocalStorage.get('data')
 
-        if (!this.data) LocalStorage.set('data', {
+        if (!this.data) this.data = LocalStorage.set('data', {
             date: moment().unix(),
             errors: 0
         })
@@ -73,8 +73,6 @@ class DaysWithoutBugs {
             autoStart: false,
             language : 'Custom'
         })
-
-        console.log(moment().unix() - moment(this.data.date * 1000).unix())
 
         this.clock.setTime(moment().unix() - moment(this.data.date * 1000).unix())
 
