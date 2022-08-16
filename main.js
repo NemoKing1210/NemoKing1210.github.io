@@ -42,35 +42,56 @@ class LocalStorage {
 
 class DaysWithoutBugs {
     constructor() {
+        this.flipdown = document.getElementById('flipdown')
+
         this.counter = document.getElementById('counter')
         this.resetButton = document.getElementById('reset')
+        this.errorsLabel = document.getElementById('errors')
 
-        this.startDate = LocalStorage.get('start-date')
+        this.fields = {}
 
-        if (!this.startDate) LocalStorage.set('start-date', moment().format('YYYY-MM-DD'))
+        this.data = LocalStorage.get('data')
 
-        this.update = this.update.bind(this)
+        if (!this.data) LocalStorage.set('data', {
+            date: moment().unix(),
+            errors: 0
+        })
+
         this.reset = this.reset.bind(this)
+        this.start = this.start.bind(this)
 
         if (this.resetButton) this.resetButton.addEventListener('click', () => { this.reset() })
-        document.addEventListener('focus', () => { this.update() })
 
-        setInterval(() => {
-            this.update()
-        }, 60000)
-
-        this.update()
+        this.start()
     }
 
-    update() {
-        const diff = moment().diff(moment(this.startDate), 'days')
+    start() {
+        FlipClock.Lang.Custom = { days: 'Дней', hours: 'Часов', minutes: 'Минут', seconds: 'Секунд' }
 
-        this.counter.innerHTML = diff
+        this.clock = $('#flipdown').FlipClock({
+            clockFace: 'DailyCounter',
+            autoStart: false,
+            language : 'Custom'
+        })
+
+        console.log(moment().unix() - moment(this.data.date * 1000).unix())
+
+        this.clock.setTime(moment().unix() - moment(this.data.date * 1000).unix())
+
+        this.clock.start()
+
+        this.errorsLabel.innerText = this.data.errors
     }
 
     reset() {
-        this.startDate = LocalStorage.set('start-date', moment().format('YYYY-MM-DD'))
-        this.update()
+        this.data = LocalStorage.set('data', {
+            date: moment().unix(),
+            errors: this.data.errors + 1
+        })
+
+        this.errorsLabel.innerText = this.data.errors
+
+        this.clock.setTime(moment().unix() - moment(this.data.date * 1000).unix())
     }
 }
 
